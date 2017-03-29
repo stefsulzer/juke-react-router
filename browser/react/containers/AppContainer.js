@@ -124,7 +124,7 @@ export default class AppContainer extends Component {
       .then(albums => {
         console.log("setting albums: ", albums);
         this.setState({
-        albums: albums
+        albums: convertAlbums(albums)
       })});
     axios.get(`/api/artists/${artistId}/songs`)
       .then(res => res.data)
@@ -154,7 +154,7 @@ export default class AppContainer extends Component {
                , albums: this.state.albums
                , selectAlbum: this.selectAlbum
                , songs: this.state.songs
-               // Artists 
+               // Artists
                , artists: this.state.artists
                , selectedArtist: this.state.selectedArtist
                , selectArtistInfo: this.selectArtistInfo

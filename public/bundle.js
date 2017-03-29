@@ -13015,6 +13015,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(35);
+
 var _Songs = __webpack_require__(82);
 
 var _Songs2 = _interopRequireDefault(_Songs);
@@ -13050,6 +13052,12 @@ var Artist = function (_Component) {
       var artistId = this.props.routeParams.artistId;
       var selectArtistInfo = this.props.selectArtistInfo;
       selectArtistInfo(artistId);
+
+      var children = this.props.children;
+      var propsToPassToChildren = {
+        albums: this.props.albums,
+        songs: this.props.songs
+      };
     }
   }, {
     key: 'render',
@@ -13063,14 +13071,51 @@ var Artist = function (_Component) {
           null,
           this.props.selectedArtist.name
         ),
-        _react2.default.createElement(_Albums2.default, { albums: this.props.albums }),
-        _react2.default.createElement(_Songs2.default, { songs: this.props.songs })
+        _react2.default.createElement(
+          'ul',
+          { className: 'nav nav-tabs' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/artists/' + this.props.routeParams.artistId + '/albums' },
+              'ALBUMS'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/artists/' + this.props.routeParams.artistId + '/songs' },
+              'SONGS'
+            )
+          )
+        ),
+        this.props.children && _react2.default.cloneElement(this.props.children, {
+          albums: this.props.albums,
+          songs: this.props.songs
+        })
       );
     }
   }]);
 
   return Artist;
 }(_react.Component);
+
+// <div>
+
+
+//   <h3>{ this.props.selectedArtist.name }</h3>
+
+//   <Albums albums={this.props.albums}/>
+
+//   <Songs songs={this.props.songs}/>
+
+
+// </div>
+
 
 exports.default = Artist;
 
@@ -14360,6 +14405,10 @@ var _Artist = __webpack_require__(121);
 
 var _Artist2 = _interopRequireDefault(_Artist);
 
+var _Songs = __webpack_require__(82);
+
+var _Songs2 = _interopRequireDefault(_Songs);
+
 var _reactRouter = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -14374,7 +14423,12 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: '/albums', component: _Albums2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'albums/:albumId', component: _Album2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/artists', component: _Artists2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/artists/:artistId', component: _Artist2.default })
+    _react2.default.createElement(
+      _reactRouter.Route,
+      { path: '/artists/:artistId', component: _Artist2.default },
+      _react2.default.createElement(_reactRouter.Route, { path: '/artists/:artistId/albums', component: _Albums2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/artists/:artistId/songs', component: _Songs2.default })
+    )
   )
 ), document.getElementById('app'));
 

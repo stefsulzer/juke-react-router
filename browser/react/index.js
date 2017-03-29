@@ -6,6 +6,7 @@ import Albums from './components/Albums';
 import Album from './components/Album';
 import Artists from './components/Artists';
 import Artist from './components/Artist';
+import Songs from './components/Songs';
 
 import { Router
        , Route
@@ -22,7 +23,10 @@ ReactDOM.render(
       <Route path="/albums" component={ Albums } />
       <Route path="albums/:albumId" component={ Album } />
       <Route path="/artists" component={ Artists } />
-      <Route path="/artists/:artistId" component={ Artist } />
+      <Route path="/artists/:artistId" component={ Artist }>
+        <Route path="/artists/:artistId/albums" component={ Albums } />
+        <Route path="/artists/:artistId/songs" component={ Songs } />
+      </Route>
     </Route>
   </Router>,
   document.getElementById('app')
